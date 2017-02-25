@@ -1,0 +1,16 @@
+--- # Installing webserver
+- hosts: webserver
+  user: test
+  sudo: yes
+  gather_facts: yes
+  tasks:
+        - name: Restart httpd package
+          service: name=httpd state=restarted
+          when: ansible_os_family == 'RedHat'
+        - name: Installing httpd package on Ubuntu
+          apt: name=apache2 state=installed
+          when: ansible_os_family == 'Debian'
+        - name: copy index.html
+          copy: src=index.html dest=/var/www/html/index.html
+        - name: start httpd service
+          service: name=httpd state=started

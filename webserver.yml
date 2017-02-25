@@ -1,0 +1,11 @@
+--- # Installing webserver
+- hosts: webserver
+  user: test
+  sudo: yes
+  tasks:
+        - name: Install httpd package
+          yum: name=httpd state=installed
+        - name: copy index.html
+          copy: src=index.html dest=/var/www/html/index.html
+        - name: start httpd service
+          service: name=httpd state=started

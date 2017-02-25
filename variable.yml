@@ -1,0 +1,13 @@
+--- # Installing webserver
+- hosts: webserver
+  user: test
+  sudo: yes
+  vars:
+      pkg: httpd
+  tasks:
+        - name: Install httpd package
+          yum: name={{pkg}} state=installed
+        - name: copy index.html
+          copy: src=index.html dest=/var/www/html/index.html
+        - name: start httpd service
+          service: name={{pkg}} state=started

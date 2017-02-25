@@ -1,0 +1,20 @@
+---
+- hosts: server2
+  user: test
+  sudo: yes
+  gather_facts: yes
+  tasks:
+       - name: Remove older version of tomcat
+         file: path=/usr/local/tomcat state=absent 
+       - name: download tomcat7
+         command: chdir=/tmp wget http://redrockdigimark.com/apachemirror/tomcat/tomcat-7/v7.0.75/bin/apache-tomcat-7.0.75.tar.gz
+       - name: create tomcat dir
+         command: mkdir /usr/local/tomcat
+       - name: mv tar file to tomcat location
+         command: chdir=/tmp /bin/mv apache-tomcat-7.0.75.tar.gz /usr/local/tomcat
+       - name: extract tar file
+         command: chdir=/usr/local/tomcat /bin/tar -xvzf apache-tomcat-7.0.75.tar.gz
+       - name: start services
+         command: nohup /usr/local/tomcat/apache-tomcat-7.0.75/bin/startup.sh &
+         register: result
+       - debug: var=result

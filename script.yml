@@ -1,0 +1,7 @@
+--- #shell script
+- hosts: webserver
+  user: test
+  sudo: no
+  tasks:
+        - name: Running Shell script
+          script: ./abc.sh

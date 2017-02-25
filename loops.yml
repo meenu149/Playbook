@@ -1,0 +1,18 @@
+--- # Installing webserver
+- hosts: webserver
+  user: test
+  sudo: yes
+  vars_prompt:
+        - name: pkg
+          prompt: Enter Pkg name
+          private: no
+  tasks:
+        - name: Install  packages
+          yum: name={{item}} state=installed
+          with_items:
+                - httpd
+                - curl
+                - telnet
+                - lynx
+                - '{{pkg}}'
+                - '{{pkg2}}'

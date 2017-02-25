@@ -1,0 +1,8 @@
+--- # Installing webserver
+- hosts: webserver
+  user: test
+  sudo: yes
+  gather_facts: yes
+  tasks:
+        - name: creating a file
+          template: src=abc.j2 dest=/etc/abc

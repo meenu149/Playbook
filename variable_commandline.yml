@@ -1,0 +1,23 @@
+--- # Installing webserver
+- hosts: '{{hosts}}'
+  user: test
+  sudo: yes
+  vars:
+      pkg: httpd
+  vars_files:
+      - abc.yml
+  vars_prompt:
+      - name: pkg2
+        prompt: enter name of the pkg
+        private: no
+  tasks:
+        - name: Install httpd package
+          yum: name={{pkg}} state=installed
+        - name: copy index.html
+          copy: src=index.html dest=/var/www/html/index.html
+        - name: start httpd service
+          service: name={{pkg}} state=started
+        - name: start httpd service
+          yum: name={{pkg1}} state=installed
+        - name: start httpd service
+          yum: name={{pkg2}} state=installed

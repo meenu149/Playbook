@@ -1,0 +1,9 @@
+---
+- hosts: server2
+  user: test
+  sudo: yes
+  gather_facts: yes
+  tasks:
+       - name: download index.htmal
+         get_url: url=http://rediff.com/index.html dest=/home/test
+
